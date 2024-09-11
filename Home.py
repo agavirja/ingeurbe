@@ -935,8 +935,7 @@ def getdata():
     user     = st.secrets["user_bigdata"]
     password = st.secrets["password_bigdata"]
     host     = st.secrets["host_bigdata_lectura"]
-    schema   = st.secrets["schema_bigdata"]
-    engine   = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{schema}')
+    engine   = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/urbex')
     
     data_base        = pd.read_sql_query("SELECT * FROM  urbex.ingeurbe_data_base" , engine)
     data_activos     = pd.read_sql_query("SELECT * FROM  urbex.ingeurbe_data_activos" , engine)
