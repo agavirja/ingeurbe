@@ -76,13 +76,12 @@ def main():
                 m = folium.Map(location=[4.687103, -74.058094], zoom_start=12,tiles="cartodbpositron")
                 if not data_activos.empty:
                     datagjson = geopoints(data_activos)
+                    if st.session_state.delay==0:
+                        time.sleep(5)
+                        st.session_state.delay = 1
                     folium.GeoJson(datagjson).add_to(m)
                 st_map = st_folium(m,width=int(mapwidth*0.7),height=500)
-                
-            if st.session_state.delay==0:
-                time.sleep(5)
-                st.session_state.delay = 1
-                
+                                
             with col1:
                 html = reporteHtml(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
                 st.components.v1.html(html, height=550)
@@ -95,12 +94,12 @@ def main():
                 m = folium.Map(location=[4.687103, -74.058094], zoom_start=12,tiles="cartodbpositron")
                 if not data_activos.empty:
                     datagjson = geopoints(data_activos)
+                    if st.session_state.delay==0:
+                        time.sleep(5)
+                        st.session_state.delay = 1
                     folium.GeoJson(datagjson).add_to(m)
                 st_map = st_folium(m,width=int(mapwidth*0.7),height=500)
                 
-            if st.session_state.delay==0:
-                time.sleep(5)
-                st.session_state.delay = 1
                     
             with col1:
                 html = reporteHtmlSelect(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
