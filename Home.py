@@ -61,31 +61,35 @@ def main():
 
         col1,col2 = st.columns([0.4,0.6])
         if 'todo' in selectname.lower() and 'todo' in selectid.lower():
-            with col1:
-                html = reporteHtml(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
-                st.components.v1.html(html, height=550)
-    
             with col2:
                 m = folium.Map(location=[4.687103, -74.058094], zoom_start=12,tiles="cartodbpositron")
                 if not data_activos.empty:
                     datagjson = geopoints(data_activos)
                     folium.GeoJson(datagjson).add_to(m)
                 st_map = st_folium(m,width=int(mapwidth*0.7),height=500)
+                
+            with col1:
+                html = reporteHtml(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
+                st.components.v1.html(html, height=550)
+    
+
         
             html = reporteHtmlGraficas(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
             st.components.v1.html(html, height=300)
 
         else:
-            with col1:
-                html = reporteHtmlSelect(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
-                st.components.v1.html(html, height=550)
-    
             with col2:
                 m = folium.Map(location=[4.687103, -74.058094], zoom_start=12,tiles="cartodbpositron")
                 if not data_activos.empty:
                     datagjson = geopoints(data_activos)
                     folium.GeoJson(datagjson).add_to(m)
                 st_map = st_folium(m,width=int(mapwidth*0.7),height=500)
+                
+            with col1:
+                html = reporteHtmlSelect(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
+                st.components.v1.html(html, height=550)
+    
+
         
             html = reporteHtmlGraficas(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
             st.components.v1.html(html, height=250)
