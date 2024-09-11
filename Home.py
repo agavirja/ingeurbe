@@ -3,6 +3,7 @@ import pandas as pd
 import geopandas as gpd
 import mysql.connector as sql
 import folium
+import time
 import plotly.express as px
 from sqlalchemy import create_engine , types
 from streamlit_folium import st_folium
@@ -18,7 +19,7 @@ st.set_page_config(layout="wide")
 def main():
     
     initialformat = {
-        'token':'',
+        'delay':0,
         }
     for key,value in initialformat.items():
         if key not in st.session_state: 
@@ -78,6 +79,10 @@ def main():
                     folium.GeoJson(datagjson).add_to(m)
                 st_map = st_folium(m,width=int(mapwidth*0.7),height=500)
                 
+            if st.session_state.delay==0:
+                time.sleep(5)
+                st.session_state.delay = 1
+                
             with col1:
                 html = reporteHtml(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
                 st.components.v1.html(html, height=550)
@@ -93,6 +98,10 @@ def main():
                     folium.GeoJson(datagjson).add_to(m)
                 st_map = st_folium(m,width=int(mapwidth*0.7),height=500)
                 
+            if st.session_state.delay==0:
+                time.sleep(5)
+                st.session_state.delay = 1
+                    
             with col1:
                 html = reporteHtmlSelect(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
                 st.components.v1.html(html, height=550)
