@@ -8,7 +8,7 @@ from sqlalchemy import create_engine , types
 from streamlit_folium import st_folium
 from bs4 import BeautifulSoup
 from shapely.geometry import Point
-from streamlit_js_eval import streamlit_js_eval
+#from streamlit_js_eval import streamlit_js_eval
 
 
 st.set_page_config(layout="wide")
@@ -17,15 +17,25 @@ st.set_page_config(layout="wide")
 
 def main():
     
+    initialformat = {
+        'token':'',
+        }
+    for key,value in initialformat.items():
+        if key not in st.session_state: 
+            st.session_state[key] = value
+          
+    mapwidth   = 1900
+    mapheight  = 200
+    
     # Tamano de la pantalla 
-    screensize = 1920
-    mapwidth   = int(screensize)
-    mapheight  = int(screensize)
-    try:
-        screensize = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
-        mapwidth   = int(screensize)
-        mapheight  = int(screensize)
-    except: pass
+    #screensize = 1920
+    #mapwidth   = int(screensize)
+    #mapheight  = int(screensize)
+    #try:
+    #    screensize = streamlit_js_eval(js_expressions='screen.width', key = 'SCR')
+    #    mapwidth   = int(screensize)
+    #    mapheight  = int(screensize)
+    #except: pass
 
 
     col1,col2,col3 = st.columns([6,1,1])
@@ -72,8 +82,6 @@ def main():
                 html = reporteHtml(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
                 st.components.v1.html(html, height=550)
     
-
-        
             html = reporteHtmlGraficas(data_base=data_base,data_activos=data_activos,data_vehiculos=data_vehiculos,mapwidth=mapwidth,mapheight=200)
             st.components.v1.html(html, height=300)
 
